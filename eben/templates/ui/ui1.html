@@ -1,0 +1,113 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/open-iconic-master/font/css/open-iconic-bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="{% static 'magnific-popup.js' %}"</script>
+        <script src="{% static 'ui.js' %}"</script>
+       
+        <title>EBEN</title>
+</head>
+<body>
+    <!--header -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">EBEN</a>
+        <div class="navbar-nav d-flex flex-row">
+            <a class="nav-link nav-item float-right mx-2 my-0" href="#"><span class="oi oi-cog"></span></a>
+            <input class="form-inline mx-0 my-0 float-right" id="search-input" type="search" placeholder="Search" aria-label="Search">
+        </div>
+    </nav>
+    
+    <!--main-->
+    <div class="container">
+        <div class="row justify-content-center no-gutters"> 
+        
+            <!-- левая колонка -->
+            <div class="col">
+                
+                <!-- меню -->
+                <nav id="menu" class="nav flex-column mx-2 my-2 col-auto bg-light text-nowrap">
+                    <a class="nav-link text-secondary" href="#"><span class="oi oi-person"></span> Profile</a>
+                    <a class="nav-link text-secondary" href="#"><span class="oi oi-rss-alt"></span> News</a>
+                    <a class="nav-link text-secondary" href="#"><span class="oi oi-task"></span> Tasks</a>
+                    <a class="nav-link text-secondary" href="#"><span class="oi oi-puzzle-piece"></span> Sandbox</a>
+                </nav>
+                
+                <!-- рейтинг -->
+                <div id="rating" class="mx-2 my-2 bg-light text-center">
+                    <h4 id="username">Rating</h4>
+                </div>
+                
+                
+            </div>
+            
+            <!-- средняя колонка -->
+            <div class="col">
+                
+                <!-- профиль -->
+                <div id="profile" class="mx-2 my-2 bg-light text-center">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                            <img width="150px" href='{{ user.avatar }}' id="userpic"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
+                        </div>
+                        <div class="col">
+                            <a class="add-button popup text-secondary float-right" href="#edit_profile"><span class="oi oi-pencil">edit</span></a>
+                        </div>
+                    </div>
+                    <h2 id="username">{{ user.get_username }}</h2>
+                    <p id="about"><strong>About: </strong>{{ user.get_about }}</p>
+                    <p id="birthdate"><strong>Birthdate: </strong>{{ user.get_birthdate }}</p>
+                    <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
+                        <span class="badge badge-primary">{{ user.get_skills }}</span> 
+                        <span class="badge badge-secondary">{{ skill2 }}</span>
+                    </p>
+                </div>
+                
+                <!-- редакторование профиля -->
+                <div class="container" hidden>
+                    <div class="row">
+                        <div class="col-auto"></div>
+                        <div class="col-auto">
+                            <form id="edit_profile" method="post" class="edit_form container" action="{% url 'users:update' %}" enctype="multipart/form-data" role="form">
+                                <div  class="form-group row justify-content-center">
+                                    <div id="update_fields">
+									    <script type="text/javascript">
+                                               var xhr = new XMLHttpRequest();
+                                               xhr.open('GET', "{% url 'users:update' %}", false);
+                                               xhr.send();
+                                               if (xhr.status != 200) {
+                                                    alert(xhr.status + ': ' + xhr.statusText);
+                                                }
+                                               else {
+                                                     document.write(xhr.responseText);
+                                                }
+                                         </script>
+                                    </div>
+                                    <div class="col-auto justify-content-center">
+                                        <button type="submit" class="btn btn-light">Change</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-auto"></div>
+                    </div>
+				</div>
+                
+            </div>
+            
+            <!-- правая колонка -->
+            <div class="col">
+            </div>
+        </div>
+    </div>
+        
+    <!--footer-->
+</body>

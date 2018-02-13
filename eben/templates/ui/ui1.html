@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/open-iconic-master/font/css/open-iconic-bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="{% static 'magnific-popup.js' %}"</script>
-        <script src="{% static 'ui.js' %}"</script>
+        <script src="{% static 'magnific-popup.js' %}"></script>
+        <script src="{% static 'ui.js' %}"></script>
        
         <title>EBEN</title>
 </head>
@@ -59,7 +59,7 @@
                             <img width="150px" href='{{ user.avatar }}' id="userpic"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
                         </div>
                         <div class="col">
-                            <a class="add-button popup text-secondary float-right" href="#edit_profile"><span class="oi oi-pencil">edit</span></a>
+                            <a class="add-button popup text-secondary float-right" href="#edit_profile"><span class="oi oi-pencil"></span>edit</a>
                         </div>
                     </div>
                     <h2 id="username">{{ user.get_username }}</h2>

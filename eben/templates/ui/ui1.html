@@ -12,9 +12,9 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="{% static 'magnific-popup.js' %}"></script>
-        <script src="{% static 'ui.js' %}"></script>
-        
+        <script src="{% static 'js/magnific-popup.js' %}"></script>
+        <script src="{% static 'js/ui.js' %}"></script>
+
         <title>EBEN</title>
 </head>
 <body class="bg-secondary">
@@ -26,14 +26,14 @@
             <input class="form-inline mx-0 my-0 float-right" id="search-input" type="search" placeholder="Search" aria-label="Search">
         </div>
     </nav>
-    
+
     <!--main-->
     <div class="container">
-        <div class="row justify-content-center no-gutters text-light"> 
-        
+        <div class="row justify-content-center no-gutters text-light">
+
             <!-- левая колонка -->
             <div class="col">
-                
+
                 <!-- меню -->
                 <nav id="menu" class="nav flex-column mx-2 my-2 col-auto bg-dark text-nowrap">
                     <a class="nav-link text-light" href="#"><span class="oi oi-person"></span> Profile</a>
@@ -41,18 +41,18 @@
                     <a class="nav-link text-light" href="#"><span class="oi oi-task"></span> Tasks</a>
                     <a class="nav-link text-light" href="#"><span class="oi oi-puzzle-piece"></span> Sandbox</a>
                 </nav>
-                
+
                 <!-- рейтинг -->
                 <div id="rating" class="mx-2 my-2 bg-dark text-center py-1">
                     <h4>Rating</h4>
                 </div>
-                
-                
+
+
             </div>
-            
+
             <!-- средняя колонка -->
             <div class="col">
-                
+
                 <!-- профиль -->
                 <div id="profile" class="mx-2 my-2 bg-dark text-center py-1">
                     <div class="row justify-content-center">
@@ -69,18 +69,18 @@
                     {% if user.get_about %}
                         <p id="about"><strong>About: </strong>{{ user.get_about }}</p>
                     {% endif %}
-                    {% if user.get_birthdate %}                  
+                    {% if user.get_birthdate %}
                         <p id="birthdate"><strong>Birthdate: </strong>{{ user.get_birthdate }}</p>
                     {% endif %}
                     {% if user.skills %}
                         <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
                             {% for s in user.skills %}
-                                <span class="badge badge-secondary">{{ s }}</span> 
+                                <span class="badge badge-secondary">{{ s }}</span>
                             {% endfor %}
                     {% endif %}
                     </p>
                 </div>
-                
+
                 <!-- редакторование профиля -->
                 <div class="container" hidden>
                     <div class="row">
@@ -110,10 +110,10 @@
                         <div class="col-auto"></div>
                     </div>
 				</div>
-                
+
                 <!-- задачи -->
                 <div id="tasks" class="mx-2 my-2 bg-dark text-center py-1 px-1">
-                    
+
                     <div class="row justify-content-center">
                         <div class="col">
                         </div>
@@ -124,7 +124,7 @@
                             <a class="add-button popup text-light float-right px-1" href="#"><span class="oi oi-plus"></span></a>
                         </div>
                     </div>
-                    
+
                     {% for t in user.tasks %}
                     <div class="d-flex justify-content-between">
                         <span class="font-weight-bold">{{ t.title }}</span>
@@ -163,7 +163,7 @@
             </div>
             <!-- правая колонка -->
             <div class="col">
-                
+
                 <!-- лента -->
                 <div id="news" class="mx-2 my-2 bg-dark text-center py-1 px-1">
                     <h4>News</h4>
@@ -186,6 +186,6 @@
             </div>
         </div>
     </div>
-        
+
     <!--footer-->
 </body>

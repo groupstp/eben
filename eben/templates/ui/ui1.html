@@ -8,13 +8,16 @@
         <link rel="stylesheet" href="{% static 'css/open-iconic-master/font/css/open-iconic-bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="{% static 'magnific-popup.js' %}"></script>
         <script src="{% static 'ui.js' %}"></script>
-       
+        
         <title>EBEN</title>
 </head>
-<body>
+<body class="bg-secondary">
     <!--header -->
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">EBEN</a>
@@ -26,22 +29,22 @@
     
     <!--main-->
     <div class="container">
-        <div class="row justify-content-center no-gutters"> 
+        <div class="row justify-content-center no-gutters text-light"> 
         
             <!-- левая колонка -->
             <div class="col">
                 
                 <!-- меню -->
-                <nav id="menu" class="nav flex-column mx-2 my-2 col-auto bg-light text-nowrap">
-                    <a class="nav-link text-secondary" href="#"><span class="oi oi-person"></span> Profile</a>
-                    <a class="nav-link text-secondary" href="#"><span class="oi oi-rss-alt"></span> News</a>
-                    <a class="nav-link text-secondary" href="#"><span class="oi oi-task"></span> Tasks</a>
-                    <a class="nav-link text-secondary" href="#"><span class="oi oi-puzzle-piece"></span> Sandbox</a>
+                <nav id="menu" class="nav flex-column mx-2 my-2 col-auto bg-dark text-nowrap">
+                    <a class="nav-link text-light" href="#"><span class="oi oi-person"></span> Profile</a>
+                    <a class="nav-link text-light" href="#"><span class="oi oi-rss-alt"></span> News</a>
+                    <a class="nav-link text-light" href="#"><span class="oi oi-task"></span> Tasks</a>
+                    <a class="nav-link text-light" href="#"><span class="oi oi-puzzle-piece"></span> Sandbox</a>
                 </nav>
                 
                 <!-- рейтинг -->
-                <div id="rating" class="mx-2 my-2 bg-light text-center">
-                    <h4 id="username">Rating</h4>
+                <div id="rating" class="mx-2 my-2 bg-dark text-center py-1">
+                    <h4>Rating</h4>
                 </div>
                 
                 
@@ -51,7 +54,7 @@
             <div class="col">
                 
                 <!-- профиль -->
-                <div id="profile" class="mx-2 my-2 bg-light text-center">
+                <div id="profile" class="mx-2 my-2 bg-dark text-center py-1">
                     <div class="row justify-content-center">
                         <div class="col">
                         </div>
@@ -59,15 +62,22 @@
                             <img width="150px" href='{{ user.avatar }}' id="userpic"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
                         </div>
                         <div class="col">
-                            <a class="add-button popup text-secondary float-right" href="#edit_profile"><span class="oi oi-pencil"></span>edit</a>
+                            <a class="add-button popup text-light float-right px-1" href="#edit_profile"><span class="oi oi-pencil"></span>edit</a>
                         </div>
                     </div>
                     <h2 id="username">{{ user.get_username }}</h2>
-                    <p id="about"><strong>About: </strong>{{ user.get_about }}</p>
-                    <p id="birthdate"><strong>Birthdate: </strong>{{ user.get_birthdate }}</p>
-                    <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
-                        <span class="badge badge-primary">{{ user.get_skills }}</span> 
-                        <span class="badge badge-secondary">{{ skill2 }}</span>
+                    {% if user.get_about %}
+                        <p id="about"><strong>About: </strong>{{ user.get_about }}</p>
+                    {% endif %}
+                    {% if user.get_birthdate %}                  
+                        <p id="birthdate"><strong>Birthdate: </strong>{{ user.get_birthdate }}</p>
+                    {% endif %}
+                    {% if user.skills %}
+                        <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
+                            {% for s in user.skills %}
+                                <span class="badge badge-secondary">{{ s }}</span> 
+                            {% endfor %}
+                    {% endif %}
                     </p>
                 </div>
                 
@@ -101,10 +111,78 @@
                     </div>
 				</div>
                 
+                <!-- задачи -->
+                <div id="tasks" class="mx-2 my-2 bg-dark text-center py-1 px-1">
+                    
+                    <div class="row justify-content-center">
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                            <h4>Tasks</h4>
+                        </div>
+                        <div class="col">
+                            <a class="add-button popup text-light float-right px-1" href="#"><span class="oi oi-plus"></span></a>
+                        </div>
+                    </div>
+                    
+                    {% for t in user.tasks %}
+                    <div class="d-flex justify-content-between">
+                        <span class="font-weight-bold">{{ t.title }}</span>
+                        <div class="btn-group">
+                            {% if t.isready %} <!-- если задача готова, кнопка серая -->
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ t.endtime }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Редактировать</a>
+                                    <a class="dropdown-item" href="#">Удалить</a>
+                                </div>
+                            {% elif t.isoverdue %} <!-- если задача просрочена, кнопка красная -->
+                                <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ t.endtime }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Готово</a>
+                                    <a class="dropdown-item" href="#">Редактировать</a>
+                                    <a class="dropdown-item" href="#">Удалить</a>
+                                </div>
+                            {% else %} <!-- кнопка серая -->
+                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ t.endtime }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Готово</a>
+                                    <a class="dropdown-item" href="#">Редактировать</a>
+                                    <a class="dropdown-item" href="#">Удалить</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            
             <!-- правая колонка -->
             <div class="col">
+                
+                <!-- лента -->
+                <div id="news" class="mx-2 my-2 bg-dark text-center py-1 px-1">
+                    <h4>News</h4>
+                    {% for n in user.news %}
+                    <div class="d-flex justify-content-between">
+                        <span class="font-weight-bold">{{ n.title }}</span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ n.time }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Спрятать</a>
+                                    <a class="dropdown-item" href="#">Поделиться</a>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="text-left">{{ n.body }}</div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

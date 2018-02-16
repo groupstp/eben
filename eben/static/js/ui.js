@@ -1,18 +1,16 @@
 $(document).ready(function(){
 	
-	$(".popup").magnificPopup();
-	
-	$("#edit_profile").on('submit', function(e){
+/*	$("#edit_profile").on('submit', function(e){
 	e.preventDefault();
-    $.post($('#edit_profile').attr('action'))
-	 .done(Ok);
-    });
+   // $.post($('#edit_profile').attr('action'))
+	// .done(Ok);
+   // });
 	
-	function Ok(){
+	//function Ok(){
 		setTimeout(function(){
-				$.magnificPopup.close();
+			    alert("OK!");
 				location.reload();
 			}, 500);
-	}
-			
+	});
+			*/
 })

@@ -59,18 +59,28 @@
                         <div class="col">
                         </div>
                         <div class="col">
-                            <img width="150px" href='{{ user.avatar }}' id="userpic"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
-                        </div>
+						{%  if user.avatar %}
+                            <img width="150px" src='{{ user.avatar.url }}' id="avatar"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
+                        {% endif %}
+						</div>
                         <div class="col">
-                            <a class="add-button popup text-light float-right px-1" href="#edit_profile"><span class="oi oi-pencil"></span>edit</a>
+                                <a type="button" class="add-button text-light float-right px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><span class="oi oi-pencil"></span>edit</a>
                         </div>
                     </div>
+					
                     <h2 id="username">{{ user.get_username }}</h2>
-                    {% if user.get_about %}
-                        <p id="about"><strong>About: </strong>{{ user.get_about }}</p>
+	
+					{% if user.first_name %}
+                      <h3 id="first_name">{{ user.first_name }}</h3>
                     {% endif %}
-                    {% if user.get_birthdate %}
-                        <p id="birthdate"><strong>Birthdate: </strong>{{ user.get_birthdate }}</p>
+                    {% if user.last_name %}
+                          <h3 id="lastname"> {{ user.last_name }}</h3>
+                    {% endif %}
+                    {% if user.info %}
+                        <p id="about"><strong>About: </strong>{{ user.info }}</p>
+                    {% endif %}
+                    {% if user.date_of_birth %}
+                        <p id="birthdate"><strong>Birthdate: </strong>{{ user.date_of_birth }}</p>
                     {% endif %}
                     {% if user.skills %}
                         <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
@@ -80,36 +90,47 @@
                     {% endif %}
                     </p>
                 </div>
-
-                <!-- редакторование профиля -->
-                <div class="container" hidden>
-                    <div class="row">
-                        <div class="col-auto"></div>
-                        <div class="col-auto">
-                            <form id="edit_profile" method="post" class="edit_form container" action="{% url 'users:update' %}" enctype="multipart/form-data" role="form">
-                                <div  class="form-group row justify-content-center">
-                                    <div id="update_fields">
-									    <script type="text/javascript">
-                                               var xhr = new XMLHttpRequest();
-                                               xhr.open('GET', "{% url 'users:update' %}", false);
-                                               xhr.send();
-                                               if (xhr.status != 200) {
-                                                    alert(xhr.status + ': ' + xhr.statusText);
-                                                }
-                                               else {
-                                                     document.write(xhr.responseText);
-                                                }
-                                         </script>
-                                    </div>
-                                    <div class="col-auto justify-content-center">
-                                        <button type="submit" class="btn btn-light">Change</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-auto"></div>
-                    </div>
-				</div>
+				{% if user == request.user %}
+<!-- Action buttons -->
+<div class="row">
+  <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ user.username }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form-horizontal" id="edit_profile" method="post" action="{% url 'users:update' %}" enctype="multipart/form-data">
+        <div class="modal-body">
+          <script type="text/javascript">
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "{% url 'users:update' %}", false);
+            xhr.send();
+            if (xhr.status != 200) {
+              alert(xhr.status + ': ' + xhr.statusText);
+            }
+            else {
+              document.write(xhr.responseText);
+            }
+            </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="control-group">
+              <div class="controls">
+                <button type="submit" class="btn">Update</button>
+              </div>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- End Action buttons -->
+{% endif %}
 
                 <!-- задачи -->
                 <div id="tasks" class="mx-2 my-2 bg-dark text-center py-1 px-1">
@@ -186,6 +207,10 @@
             </div>
         </div>
     </div>
+<div class="container">
+
+
+
 
     <!--footer-->
 </body>

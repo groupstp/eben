@@ -46,7 +46,7 @@ MIDDLEWARE = RAVEN_MIDDLEWARE + MIDDLEWARE
 
 # set this to 60 seconds and then to 518400 when you can prove it works
 SECURE_HSTS_SECONDS = 60
-if env.bool('SECURE', dafault=False):
+if env.bool('SECURE', default=False):
     SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
         'DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True)
     SECURE_CONTENT_TYPE_NOSNIFF = env.bool(

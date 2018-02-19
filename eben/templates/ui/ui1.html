@@ -14,6 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="{% static 'js/magnific-popup.js' %}"></script>
         <script src="{% static 'js/ui.js' %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
         <title>EBEN</title>
 </head>
@@ -67,9 +68,9 @@
                                 <a type="button" class="add-button text-light float-right px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><span class="oi oi-pencil"></span>edit</a>
                         </div>
                     </div>
-					
+
                     <h2 id="username">{{ user.get_username }}</h2>
-	
+
 					{% if user.first_name %}
                       <h3 id="first_name">{{ user.first_name }}</h3>
                     {% endif %}
@@ -94,7 +95,7 @@
 <!-- Action buttons -->
 <div class="row">
   <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog"  role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">{{ user.username }}</h5>
@@ -102,8 +103,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="form-horizontal" id="edit_profile" method="post" action="{% url 'users:update' %}" enctype="multipart/form-data">
-        <div class="modal-body">
+        <form class="form-horizontal" name="editted" id="edit_profile" method="POST" action="{% url 'users:update' %}" enctype="multipart/form-data">
+        <div class="modal-body" id = "inner-form">
           <script type="text/javascript">
             var xhr = new XMLHttpRequest();
             xhr.open('GET', "{% url 'users:update' %}", false);

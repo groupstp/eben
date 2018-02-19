@@ -12,8 +12,17 @@
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.5);
     overflow: hidden;
 	color: #fff;
 }
 
+.good{
+
+  color: #000;
+}
+
+.bad{
+
+  color: #8B0000;
+}

@@ -17,12 +17,46 @@
 	color: #fff;
 }
 
-.good{
+body {
+	background: #1f253d;
+    line-height: 1;
+}
 
+a:hover {
+	color: #ffffff;
+}
+
+.block {
+    margin-bottom: 25px;
+    background: #394264;
+    border-radius: 5px;
+}
+
+.avatar {
+    margin: 0 auto;		
+    border: 5px solid #50597b;
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+}
+
+.block-icons {
+    color: #9099b7;
+}
+
+.hover_class .hover_button {
+    visibility:hidden;
+}
+
+.hover_class:hover .hover_button {
+    visibility:visible;
+}
+
+.good{
   color: #000;
 }
 
 .bad{
-
   color: #8B0000;
 }
+

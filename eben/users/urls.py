@@ -1,26 +1,12 @@
-from django.conf.urls import url
+from rest_framework import routers
 
 from . import views
 
-urlpatterns = [
-    url(
-        regex=r'^$',
-        view=views.UserListView.as_view(),
-        name='list'
-    ),
-    url(
-        regex=r'^~redirect/$',
-        view=views.UserRedirectView.as_view(),
-        name='redirect'
-    ),
-    url(
-        regex=r'^(?P<username>[\w.@+-]+)/$',
-        view=views.UserDetailView.as_view(),
-        name='detail'
-    ),
-    url(
-        regex=r'^~update/$',
-        view=views.UserUpdateView.as_view(),
-        name='update'
-    ),
-]
+
+router = routers.SimpleRouter()
+router.register(r'', views.UserViewSet, 'users')
+router.register(r'user', views.UserView, 'user')
+router.register(r'update', views.UserUpdateView, 'update')
+
+
+urlpatterns = router.urls

@@ -17,12 +17,12 @@
 	color: #fff;
 }
 
-body {
+.body-dark {
 	background: #1f253d;
     line-height: 1;
 }
 
-a:hover {
+.a-button:hover {
 	color: #ffffff;
 }
 

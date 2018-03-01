@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
-from rest_framework import generics
-from rest_framework.renderers import JSONRenderer, MultiPartRenderer, TemplateHTMLRenderer
+from rest_framework import generics, permissions
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.response import Response
 
+from .permissions import IsOwner
 from .serializers import UserSerializer, UserUpdateSerializer
 from .models import User
 
@@ -35,6 +36,7 @@ class UserUpdateView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     lookup_field = 'username'
     serializer_class = UserUpdateSerializer
+    permission_classes = (IsOwner, )
 
     def retrieve(self, *args, **kwargs):
         instance = self.get_object()
@@ -47,4 +49,4 @@ class UserUpdateView(generics.RetrieveUpdateAPIView):
         if not serializer.is_valid():
             return Response({'serializer': serializer, type(instance).__name__: instance})
         serializer.save()
-        return redirect('home')
+        return redirect('ui')

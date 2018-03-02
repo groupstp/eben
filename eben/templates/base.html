@@ -17,7 +17,10 @@
 
     <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Your stuff: Third-party CSS libraries go here -->
 
@@ -30,10 +33,22 @@
 
   </head>
 
-  <body>
+  <body class="body-dark">
 
     <div class="m-b-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <!--header -->
+<!--
+      <nav class="navbar navbar-dark block">
+        <a class="navbar-brand" href="{% url 'home' %}">EBEN</a>
+        <div class="navbar-nav d-flex flex-row">
+          <a class="nav-link nav-item float-right mx-2 my-0" href="#"><i class="fa fa-cog"></i></a>
+          <input class="form-inline mx-0 my-0 float-right" id="search-input" type="search" placeholder="Search" aria-label="Search">
+        </div>
+      </nav>  
+-->
+        
+
+      <nav class="navbar navbar-expand-md navbar-dark block">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -70,6 +85,7 @@
         </div>
       </nav>
 
+
     </div>
 
     <div class="container">
@@ -81,7 +97,7 @@
       {% endif %}
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+                <!-- место для контента -->
       {% endblock content %}
 
     </div> <!-- /container -->

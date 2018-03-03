@@ -45,9 +45,9 @@
                         <div class="col"></div>
                     <div class="col pt-1 mr-1">
                         <div class="d-flex justify-content-end">
-                            <span><a type="button" class="a-button block-icons px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><i class="fa fa-pencil"></i></a></span>
-                            <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                            <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                            <span><a class="a-button block-icons px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><i class="fa fa-pencil"></i></a></span>
+                            <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                            <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                         </div>
                     </div>
                     </div>
@@ -96,7 +96,7 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">{{ user.username }}</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <button class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
@@ -115,7 +115,7 @@
                             </script>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <div class="control-group">
                               <div class="controls">
                                 <button type="submit" class="btn">Update</button>
@@ -147,9 +147,9 @@
                         </div>
                         <div class="col pt-1 mr-1">
                             <div class="d-flex justify-content-end">
-                                <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
+                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                     <div class="d-flex justify-content-between">
                         <span class="font-weight-bold">{{ n.title }}</span>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ n.time }}
                                 </button>
                                 <div class="dropdown-menu">
@@ -184,9 +184,9 @@
                                 </div>
                                 <div class="col pt-1 mr-1">
                                     <div class="d-flex justify-content-end">
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                                 <span class="font-weight-bold">{{ t.title }}</span>
                                 <div class="btn-group">
                                     {% if t.isready %} <!-- если задача готова, кнопка серая -->
-                                        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ t.endtime }}
                                         </button>
                                         <div class="dropdown-menu">
@@ -203,7 +203,7 @@
                                             <a class="dropdown-item" href="#">Удалить</a>
                                         </div>
                                     {% elif t.isoverdue %} <!-- если задача просрочена, кнопка красная -->
-                                        <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ t.endtime }}
                                         </button>
                                         <div class="dropdown-menu">
@@ -212,7 +212,7 @@
                                             <a class="dropdown-item" href="#">Удалить</a>
                                         </div>
                                     {% else %} <!-- кнопка зеленая -->
-                                        <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ t.endtime }}
                                         </button>
                                         <div class="dropdown-menu">
@@ -239,9 +239,9 @@
                                 </div>
                                 <div class="col pt-1 mr-1">
                                     <div class="d-flex justify-content-end">
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                                     </div>
                                 </div>
                             </div>

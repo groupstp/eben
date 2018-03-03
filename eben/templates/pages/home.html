@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load static i18n %}
 {% block content %}
 
 {% if request.user.is_authenticated %}
@@ -19,9 +19,9 @@
                         <div class="col"></div>
                     <div class="col pt-1 mr-1">
                         <div class="d-flex justify-content-end">
-                            <span><a type="button" class="a-button block-icons px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><i class="fa fa-pencil"></i></a></span>
-                            <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                            <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                            <span><a class="a-button block-icons px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><i class="fa fa-pencil"></i></a></span>
+                            <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                            <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                         </div>
                     </div>
                     </div>
@@ -53,7 +53,7 @@
                         <p id="birthdate"><strong>Birthdate: </strong>{{ user.date_of_birth }}</p>
                     {% endif %}
                     {% if user.skills %}
-                        <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
+                        <p id="skills"><strong>Skills: </strong>
                             {% for s in user.skills %}
                                 <span class="badge badge-secondary">{{ s }}</span>
                             {% endfor %}
@@ -121,9 +121,9 @@
                         </div>
                         <div class="col pt-1 mr-1">
                             <div class="d-flex justify-content-end">
-                                <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
+                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                             </div>
                         </div>
                     </div>
@@ -158,9 +158,9 @@
                                 </div>
                                 <div class="col pt-1 mr-1">
                                     <div class="d-flex justify-content-end">
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -213,9 +213,9 @@
                                 </div>
                                 <div class="col pt-1 mr-1">
                                     <div class="d-flex justify-content-end">
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                        <span><a type="button" class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
+                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -225,12 +225,18 @@
             </div>
         </div>
     </div>
-{% else %}
 
-    {# URL provided by django-allauth/account/urls.py #}
-    <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-    {# URL provided by django-allauth/account/urls.py #}
-    <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+{% else %}
+  <div class="d-flex flex-column text-center">
+    <!-- тут сделать красиво -->
+    <div class="p-2"><img class="img-fluid" src="{% static 'images/logo.png' %}"></div>
+    <div class="p-2">
+        {# URL provided by django-allauth/account/urls.py #}
+        <a class="btn btn-light btn-lg" id="sign-up-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+        {# URL provided by django-allauth/account/urls.py #}
+        <a class="btn btn-light btn-lg" id="log-in-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+    </div>
+  </div>
 
 {% endif %}
 {% endblock content %}

@@ -1,3 +1,4 @@
+from allauth.account.views import ConfirmEmailView
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
@@ -20,7 +21,9 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
+    url(r'^rest-auth/registration/account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(),
+        name='account_confirm_email'),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

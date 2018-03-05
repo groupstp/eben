@@ -4,257 +4,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="{% static 'js/magnific-popup.js' %}"></script>
-        <script src="{% static 'js/ui.js' %}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
-        <title>EBEN</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+  <script src="{% static 'js/magnific-popup.js' %}"></script>
+  <script src="{% static 'js/ui.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <title>EBEN</title>
 </head>
 <body class="body-dark">
-    <!--header -->
-    <nav class="navbar navbar-dark block">
-        <a class="navbar-brand" href="#">EBEN</a>
-        <div class="navbar-nav d-flex flex-row">
-            <a class="nav-link nav-item float-right mx-2 my-0" href="#"><i class="fa fa-cog"></i></a>
-            
-            <input class="form-inline mx-0 my-0 float-right" id="search-input" type="search" placeholder="Search" aria-label="Search">
+<!--header -->
+<nav class="navbar navbar-dark block">
+  <a class="navbar-brand" href="#">EBEN</a>
+  <div class="navbar-nav d-flex flex-row">
+    <a class="nav-link nav-item float-right mx-2 my-0" href="#"><i class="fa fa-cog"></i></a>
+    <input class="form-inline mx-0 my-0 float-right" id="search-input" type="search" placeholder="Search"
+           aria-label="Search">
+  </div>
+</nav>
+<!--main-->
+<div class="container">
+  <div class="row justify-content-center no-gutters text-light">
+    <!-- левая колонка -->
+    <div class="col-sm col-md col-lg-4 col-xl-4">
+      <!-- профиль -->
+      <div id="profile" class="mx-2 my-2 block text-center py-1">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col pt-1 mr-1">
+            <div class="d-flex justify-content-end">
+              <span><a class="a-button block-icons px-1" data-toggle="modal" data-target="#editUser" href="#editUser"><i
+                class="fa fa-pencil"></i></a></span>
+              <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-minimize"></i></a></span>
+              <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-maximize"></i></a></span>
+            </div>
+          </div>
         </div>
-    </nav>
+        <div class="justify-content-center">
+          <div>
+            {% if user.avatar %}
+              <img width="150px" src='{{ user.avatar.url }}' id="avatar"
+                   class="rounded-circle img-responsive border border-secondary m-2" alt="">
+            {% else %} <!-- заглушка -->
+              <img width="150px"
+                   src='https://www.events72.ru/sites/default/files/pesona/6f2af146277fd7fc55bac74ad8c2dcb5_xl.jpg'
+                   id="avatar" class="avatar" alt="">
+            {% endif %}
+          </div>
+        </div>
+        {% if user.first_name or user.last_name %}
+          {% if user.first_name %}
+            <span><h3 id="first_name">{{ user.first_name }}</h3></span>
+          {% endif %}
+          {% if user.last_name %}
+            <span><h3 id="lastname"> {{ user.last_name }}</h3></span>
+          {% endif %}
+        {% else %}
+          <h2 id="username">{{ user.get_username }}</h2>
+        {% endif %}
+        {% if user.info %}
+          <p id="about"><strong>About: </strong>{{ user.info }}</p>
+        {% endif %}
+        {% if user.date_of_birth %}
+          <p id="birthdate"><strong>Birthdate: </strong>{{ user.date_of_birth }}</p>
+        {% endif %}
+        {% if user.skills %}
+          <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
+          {% for s in user.skills %}
+            <span class="badge badge-secondary">{{ s }}</span>
+          {% endfor %}
+        {% endif %}
+        </p>
+      </div>
 
-    <!--main-->
-    <div class="container">
-        <div class="row justify-content-center no-gutters text-light">
 
-            <!-- левая колонка -->
-            <div class="col-sm col-md col-lg-4 col-xl-4">
-
-                <!-- профиль -->
-                <div id="profile" class="mx-2 my-2 block text-center py-1">
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col"></div>
-                    <div class="col pt-1 mr-1">
-                        <div class="d-flex justify-content-end">
-                            <span><a class="a-button block-icons px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><i class="fa fa-pencil"></i></a></span>
-                            <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                            <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="justify-content-center">
-
-                        <div>
-						{%  if user.avatar %}
-                            <img width="150px" src='{{ user.avatar.url }}' id="avatar"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
-                        {% else %} <!-- заглушка -->
-                            <img width="150px" src='https://www.events72.ru/sites/default/files/pesona/6f2af146277fd7fc55bac74ad8c2dcb5_xl.jpg' id="avatar"  class="avatar" alt="">
-                        {% endif %}
-						</div>
-                    </div>
-
-					{% if user.first_name or user.last_name %}
-                        {% if user.first_name %}
-                            <span><h3 id="first_name">{{ user.first_name }}</h3></span>
-                        {% endif %}
-                        {% if user.last_name %}
-                            <span><h3 id="lastname"> {{ user.last_name }}</h3></span>
-                        {% endif %}
-                    {% else %}
-                        <h2 id="username">{{ user.get_username }}</h2>
-                    {% endif %}
-                    {% if user.info %}
-                        <p id="about"><strong>About: </strong>{{ user.info }}</p>
-                    {% endif %}
-                    {% if user.date_of_birth %}
-                        <p id="birthdate"><strong>Birthdate: </strong>{{ user.date_of_birth }}</p>
-                    {% endif %}
-                    {% if user.skills %}
-                        <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
-                            {% for s in user.skills %}
-                                <span class="badge badge-secondary">{{ s }}</span>
-                            {% endfor %}
-                    {% endif %}
-                    </p>
+      {% if user == request.user %} <!-- редактирование профиля -->
+        <!-- Action buttons -->
+        <div class="row">
+          <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{{ user.username }}</h5>
+                  <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-                
-                
-				{% if user == request.user %} <!-- редактирование профиля -->
-                <!-- Action buttons -->
-                <div class="row">
-                  <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog"  role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">{{ user.username }}</h5>
-                          <button class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <form class="form-horizontal" name="editted" id="edit_profile" method="POST" action="{% url 'users:update' %}" enctype="multipart/form-data">
-                        <div class="modal-body" id = "inner-form">
-                          <script type="text/javascript">
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('GET', "{% url 'users:update' %}", false);
-                            xhr.send();
-                            if (xhr.status != 200) {
-                              alert(xhr.status + ': ' + xhr.statusText);
-                            }
-                            else {
-                              document.write(xhr.responseText);
-                            }
-                            </script>
-                          </div>
-                          <div class="modal-footer">
-                            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <div class="control-group">
-                              <div class="controls">
-                                <button type="submit" class="btn">Update</button>
-                              </div>
-                            </div>
-                          </div>
-                          </form>
-                        </div>
+                <form class="form-horizontal" name="editted" id="edit_profile" method="POST"
+                      action="{% url 'users:update' %}" enctype="multipart/form-data">
+                  <div class="modal-body" id="inner-form">
+                    <script type="text/javascript">
+                      var xhr = new XMLHttpRequest();
+                      xhr.open('GET', "{% url 'users:update' %}", false);
+                      xhr.send();
+                      if (xhr.status != 200) {
+                        alert(xhr.status + ': ' + xhr.statusText);
+                      }
+                      else {
+                        document.write(xhr.responseText);
+                      }
+                    </script>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="control-group">
+                      <div class="controls">
+                        <button type="submit" class="btn">Update</button>
                       </div>
                     </div>
-                </div>
-                <!-- End Action buttons -->
-                {% endif %}
-                
-                <!-- рейтинг -->
-                <div id="rating" class="mx-2 my-2 block text-center py-1">
-                    <h4>Рейтинг</h4>
-                </div>
+                  </div>
+                </form>
+              </div>
             </div>
-
-            <!-- правая широкая -->
-            <div class="col-md col-lg-8 col-xl-8">
-                <!-- новости -->
-                <div id="news" class="mx-2 my-2 block text-center py-1">
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col">
-                            <h4>Новости</h4>
-                        </div>
-                        <div class="col pt-1 mr-1">
-                            <div class="d-flex justify-content-end">
-                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    {% for n in user.news %}
-                    <div class="d-flex justify-content-between">
-                        <span class="font-weight-bold">{{ n.title }}</span>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ n.time }}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Спрятать</a>
-                                    <a class="dropdown-item" href="#">Поделиться</a>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="text-left">{{ n.body }}</div>
-                    {% endfor %}
-                </div>
-                
-                <!-- нижний ряд справа -->
-                <div class="row justify-content-center no-gutters text-light">
-                    <!-- левая маленькая колонка нижнего ряда -->
-                    <div class="col-lg col-xl">
-                        
-                        <!-- задачи -->
-                        <div id="tasks" class="mx-2 my-2 block text-center py-1">
-                            <div class="row">
-                                <div class="col"></div>
-                                <div class="col">
-                                    <h4>Задачи</h4>
-                                </div>
-                                <div class="col pt-1 mr-1">
-                                    <div class="d-flex justify-content-end">
-                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
-                                    </div>
-                                </div>
-                            </div>
-                            {% for t in user.tasks %}
-                            <div class="d-flex justify-content-between">
-                                <span class="font-weight-bold">{{ t.title }}</span>
-                                <div class="btn-group">
-                                    {% if t.isready %} <!-- если задача готова, кнопка серая -->
-                                        <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ t.endtime }}
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Редактировать</a>
-                                            <a class="dropdown-item" href="#">Удалить</a>
-                                        </div>
-                                    {% elif t.isoverdue %} <!-- если задача просрочена, кнопка красная -->
-                                        <button class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ t.endtime }}
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Готово</a>
-                                            <a class="dropdown-item" href="#">Редактировать</a>
-                                            <a class="dropdown-item" href="#">Удалить</a>
-                                        </div>
-                                    {% else %} <!-- кнопка зеленая -->
-                                        <button class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ t.endtime }}
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Готово</a>
-                                            <a class="dropdown-item" href="#">Редактировать</a>
-                                            <a class="dropdown-item" href="#">Удалить</a>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    
-                    <!-- правая маленькая колонка нижнего ряда -->
-                    <div class="col-lg col-xl">
-                        
-                        <!-- проекты -->
-                        <div id="projects" class="mx-2 my-2 block text-center py-1">
-                            <div class="row">
-                                <div class="col"></div>
-                                <div class="col">
-                                    <h4>Проекты</h4>
-                                </div>
-                                <div class="col pt-1 mr-1">
-                                    <div class="d-flex justify-content-end">
-                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-plus-square"></i></a></span>
-                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-minimize"></i></a></span>
-                                        <span><a class="a-button block-icons px-1" href="#" ><i class="fa fa-window-maximize"></i></a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <!-- End Action buttons -->
+      {% endif %}
+
+      <!-- рейтинг -->
+      <div id="rating" class="mx-2 my-2 block text-center py-1">
+        <h4>Рейтинг</h4>
+      </div>
     </div>
+
+    <!-- правая широкая -->
+    <div class="col-md col-lg-8 col-xl-8">
+      <!-- новости -->
+      <div id="news" class="mx-2 my-2 block text-center py-1">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col">
+            <h4>Новости</h4>
+          </div>
+          <div class="col pt-1 mr-1">
+            <div class="d-flex justify-content-end">
+              <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-plus-square"></i></a></span>
+              <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-minimize"></i></a></span>
+              <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-maximize"></i></a></span>
+            </div>
+          </div>
+        </div>
+        {% for n in user.news %}
+          <div class="d-flex justify-content-between">
+            <span class="font-weight-bold">{{ n.title }}</span>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false">
+                {{ n.time }}
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Спрятать</a>
+                <a class="dropdown-item" href="#">Поделиться</a>
+              </div>
+            </div>
+          </div>
+          <div class="text-left">{{ n.body }}</div>
+        {% endfor %}
+      </div>
+
+      <!-- нижний ряд справа -->
+      <div class="row justify-content-center no-gutters text-light">
+        <!-- левая маленькая колонка нижнего ряда -->
+        <div class="col-lg col-xl">
+
+          <!-- задачи -->
+          <div id="tasks" class="mx-2 my-2 block text-center py-1">
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <h4>Задачи</h4>
+              </div>
+              <div class="col pt-1 mr-1">
+                <div class="d-flex justify-content-end">
+                  <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-plus-square"></i></a></span>
+                  <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-minimize"></i></a></span>
+                  <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-maximize"></i></a></span>
+                </div>
+              </div>
+            </div>
+            {% for t in user.tasks %}
+              <div class="d-flex justify-content-between">
+                <span class="font-weight-bold">{{ t.title }}</span>
+                <div class="btn-group">
+                  {% if t.isready %} <!-- если задача готова, кнопка серая -->
+                    <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                      {{ t.endtime }}
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Редактировать</a>
+                      <a class="dropdown-item" href="#">Удалить</a>
+                    </div>
+                  {% elif t.isoverdue %} <!-- если задача просрочена, кнопка красная -->
+                    <button class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                      {{ t.endtime }}
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Готово</a>
+                      <a class="dropdown-item" href="#">Редактировать</a>
+                      <a class="dropdown-item" href="#">Удалить</a>
+                    </div>
+                  {% else %} <!-- кнопка зеленая -->
+                    <button class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                      {{ t.endtime }}
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Готово</a>
+                      <a class="dropdown-item" href="#">Редактировать</a>
+                      <a class="dropdown-item" href="#">Удалить</a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- правая маленькая колонка нижнего ряда -->
+        <div class="col-lg col-xl">
+
+          <!-- проекты -->
+          <div id="projects" class="mx-2 my-2 block text-center py-1">
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <h4>Проекты</h4>
+              </div>
+              <div class="col pt-1 mr-1">
+                <div class="d-flex justify-content-end">
+                  <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-plus-square"></i></a></span>
+                  <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-minimize"></i></a></span>
+                  <span><a class="a-button block-icons px-1" href="#"><i class="fa fa-window-maximize"></i></a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
 
 
-
-
-    <!--footer-->
+  <!--footer-->
 </body>

@@ -112,7 +112,17 @@
 
           <!-- рейтинг -->
           <div id="rating" class="mx-2 my-2 block text-center py-1">
-            <h4>Рейтинг</h4>
+            {% if user.rating %}
+              <h4>Рейтинг: {{ user.rating }}</h4>
+            {% endif %}
+            <!-- демо-контент -->
+            <h4>Рейтинг: 100</h4>
+            <div class="progress mx-2 mb-2" style="height: 25px;">
+              <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50</div>
+              <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30</div>
+              <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
+            </div>
+            <!-- /демо-контент -->
           </div>
         </div>
 
@@ -134,10 +144,10 @@
               </div>
             </div>
             {% for n in user.news %}
-              <div class="d-flex justify-content-between">
-                <span class="font-weight-bold">{{ n.title }}</span>
+              <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">{{ n.title }}</a></span>
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"
+                  <button type="button" class="btn btn-sm btn-link-news dropdown-toggle" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
                     {{ n.time }}
                   </button>
@@ -147,8 +157,27 @@
                   </div>
                 </div>
               </div>
-              <div class="text-left">{{ n.body }}</div>
+              <div class="text-left mx-2 mb-2">{{ n.body }}</div>
             {% endfor %}
+            
+            <!-- демо-контент -->
+              <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Lorem ipsum</a></span>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-link-news dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                    10:25 01-01-2015
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Спрятать</a>
+                    <a class="dropdown-item" href="#">Поделиться</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-left mx-3 mb-2"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed purus ligula. Proin hendrerit eget dolor et imperdiet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed eleifend bibendum augue eu imperdiet. Nulla interdum lectus sed risus dictum laoreet. Suspendisse libero urna, laoreet auctor ex eu, tristique bibendum neque. Vivamus luctus posuere magna eget imperdiet. Maecenas scelerisque sollicitudin porttitor. Donec augue tellus, venenatis sed rhoncus in, efficitur quis est.</p>
+                                               <p>Nulla quis consectetur ligula. Nullam aliquet, nisi ut fermentum venenatis, enim tortor laoreet dolor, nec ultricies massa dui id massa. In et gravida ex. Suspendisse vitae magna sit amet lacus fermentum finibus. Nunc ullamcorper id odio sit amet tempor. Pellentesque nec nisi quis libero facilisis efficitur. Nullam tempor diam id ex dictum aliquam. Nam non arcu non dolor condimentum congue eu et sem. Nam pulvinar vitae sem eu pellentesque. Nam mi sem, feugiat non ornare sit amet, posuere in risus. Integer non turpis lacinia, ultricies nulla vel, porttitor felis.</p> </div>
+            <!-- /демо-контент -->
+            
           </div>
 
           <!-- нижний ряд справа -->
@@ -157,7 +186,7 @@
             <div class="col-lg col-xl">
 
               <!-- задачи -->
-              <div id="tasks" class="mx-2 my-2 block text-center py-1">
+              <div id="tasks" class="mx-2 my-2 block text-center pt-1 pb-2">
                 <div class="row">
                   <div class="col"></div>
                   <div class="col">
@@ -174,8 +203,8 @@
                   </div>
                 </div>
                 {% for t in user.tasks %}
-                  <div class="d-flex justify-content-between">
-                    <span class="font-weight-bold">{{ t.title }}</span>
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">{{ t.title }}</a></span>
                     <div class="btn-group">
                       {% if t.isready %} <!-- если задача готова, кнопка серая -->
                         <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"
@@ -210,6 +239,51 @@
                     </div>
                   </div>
                 {% endfor %}
+                
+                  <!-- демо-контент -->
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Задача готова</a></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-link-news dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                          10:25 01-01-2015
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Редактировать</a>
+                          <a class="dropdown-item" href="#">Удалить</a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Задача просрочена</a></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                          10:25 01-01-2015
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Готово</a>
+                          <a class="dropdown-item" href="#">Редактировать</a>
+                          <a class="dropdown-item" href="#">Удалить</a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Задача текущая</a></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                          10:25 01-01-2015
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Готово</a>
+                          <a class="dropdown-item" href="#">Редактировать</a>
+                          <a class="dropdown-item" href="#">Удалить</a>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- /демо-контент -->
+
               </div>
             </div>
 
@@ -217,7 +291,7 @@
             <div class="col-lg col-xl">
 
               <!-- проекты -->
-              <div id="projects" class="mx-2 my-2 block text-center py-1">
+              <div id="projects" class="mx-2 my-2 block text-center pt-1 pb-2">
                 <div class="row">
                   <div class="col"></div>
                   <div class="col">
@@ -233,6 +307,49 @@
                     </div>
                   </div>
                 </div>
+                
+                <!-- /демо-контент -->
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Проект 1</a></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-link-news dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                          10:25 01-01-2015
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Просмотр</a>
+                          <a class="dropdown-item" href="#">Скрыть</a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Проект 2</a></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-link-news dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                          10:25 01-01-2015
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Просмотр</a>
+                          <a class="dropdown-item" href="#">Скрыть</a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between ml-3 mr-1 pt-2">
+                    <span class="font-weight-bold pt-2"><a class="a-white a-button" href="#">Проект 3</a></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-link-news dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                          10:25 01-01-2015
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Просмотр</a>
+                          <a class="dropdown-item" href="#">Скрыть</a>
+                        </div>
+                    </div>
+                  </div>
+                <!-- демо-контент -->
+                
               </div>
             </div>
           </div>

@@ -23,7 +23,17 @@
     color: antiquewhite;
 }
 
+.btn-link-news {
+    font-weight: 400;
+    color: #ffffff;
+    background-color: transparent;
+}
+
 .a-button:hover {
+	color: #ffffff;
+}
+
+.a-white {
 	color: #ffffff;
 }
 

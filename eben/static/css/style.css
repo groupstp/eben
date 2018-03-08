@@ -1,0 +1,28 @@
+.edit_form{
+	position: relative;
+
+    width: auto;
+
+	margin: 0 auto;
+
+    max-width: 40%;
+
+   padding: 30px 30px 6px 30px;
+    border: 1px solid rgba(0,0,0,.2);
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+	color: #fff;
+}
+
+.good{
+
+  color: #000;
+}
+
+.bad{
+
+  color: #8B0000;
+}

@@ -1,0 +1,217 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/open-iconic-master/font/css/open-iconic-bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="{% static 'js/magnific-popup.js' %}"></script>
+        <script src="{% static 'js/ui.js' %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+        <title>EBEN</title>
+</head>
+<body class="bg-secondary">
+    <!--header -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">EBEN</a>
+        <div class="navbar-nav d-flex flex-row">
+            <a class="nav-link nav-item float-right mx-2 my-0" href="#"><span class="oi oi-cog"></span></a>
+            <input class="form-inline mx-0 my-0 float-right" id="search-input" type="search" placeholder="Search" aria-label="Search">
+        </div>
+    </nav>
+
+    <!--main-->
+    <div class="container">
+        <div class="row justify-content-center no-gutters text-light">
+
+            <!-- левая колонка -->
+            <div class="col">
+
+                <!-- меню -->
+                <nav id="menu" class="nav flex-column mx-2 my-2 col-auto bg-dark text-nowrap">
+                    <a class="nav-link text-light" href="#"><span class="oi oi-person"></span> Profile</a>
+                    <a class="nav-link text-light" href="#"><span class="oi oi-rss-alt"></span> News</a>
+                    <a class="nav-link text-light" href="#"><span class="oi oi-task"></span> Tasks</a>
+                    <a class="nav-link text-light" href="#"><span class="oi oi-puzzle-piece"></span> Sandbox</a>
+                </nav>
+
+                <!-- рейтинг -->
+                <div id="rating" class="mx-2 my-2 bg-dark text-center py-1">
+                    <h4>Rating</h4>
+                </div>
+
+
+            </div>
+
+            <!-- средняя колонка -->
+            <div class="col">
+
+                <!-- профиль -->
+                <div id="profile" class="mx-2 my-2 bg-dark text-center py-1">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                        </div>
+                        <div class="col">
+						{%  if user.avatar %}
+                            <img width="150px" src='{{ user.avatar.url }}' id="avatar"  class="rounded-circle img-responsive border border-secondary m-2" alt="">
+                        {% endif %}
+						</div>
+                        <div class="col">
+                                <a type="button" class="add-button text-light float-right px-1" data-toggle="modal" data-target="#editUser" href="#editUser" ><span class="oi oi-pencil"></span>edit</a>
+                        </div>
+                    </div>
+
+                    <h2 id="username">{{ user.get_username }}</h2>
+
+					{% if user.first_name %}
+                      <h3 id="first_name">{{ user.first_name }}</h3>
+                    {% endif %}
+                    {% if user.last_name %}
+                          <h3 id="lastname"> {{ user.last_name }}</h3>
+                    {% endif %}
+                    {% if user.info %}
+                        <p id="about"><strong>About: </strong>{{ user.info }}</p>
+                    {% endif %}
+                    {% if user.date_of_birth %}
+                        <p id="birthdate"><strong>Birthdate: </strong>{{ user.date_of_birth }}</p>
+                    {% endif %}
+                    {% if user.skills %}
+                        <p id="skills"><strong>Skills: </strong> <!-- здесь скиллы будут отображаться в виде тегов, нужен список -->
+                            {% for s in user.skills %}
+                                <span class="badge badge-secondary">{{ s }}</span>
+                            {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+				{% if user == request.user %}
+<!-- Action buttons -->
+<div class="row">
+  <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ user.username }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form-horizontal" name="editted" id="edit_profile" method="POST" action="{% url 'users:update' %}" enctype="multipart/form-data">
+        <div class="modal-body" id = "inner-form">
+          <script type="text/javascript">
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "{% url 'users:update' %}", false);
+            xhr.send();
+            if (xhr.status != 200) {
+              alert(xhr.status + ': ' + xhr.statusText);
+            }
+            else {
+              document.write(xhr.responseText);
+            }
+            </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="control-group">
+              <div class="controls">
+                <button type="submit" class="btn">Update</button>
+              </div>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- End Action buttons -->
+{% endif %}
+
+                <!-- задачи -->
+                <div id="tasks" class="mx-2 my-2 bg-dark text-center py-1 px-1">
+
+                    <div class="row justify-content-center">
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                            <h4>Tasks</h4>
+                        </div>
+                        <div class="col">
+                            <a class="add-button popup text-light float-right px-1" href="#"><span class="oi oi-plus"></span></a>
+                        </div>
+                    </div>
+
+                    {% for t in user.tasks %}
+                    <div class="d-flex justify-content-between">
+                        <span class="font-weight-bold">{{ t.title }}</span>
+                        <div class="btn-group">
+                            {% if t.isready %} <!-- если задача готова, кнопка серая -->
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ t.endtime }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Редактировать</a>
+                                    <a class="dropdown-item" href="#">Удалить</a>
+                                </div>
+                            {% elif t.isoverdue %} <!-- если задача просрочена, кнопка красная -->
+                                <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ t.endtime }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Готово</a>
+                                    <a class="dropdown-item" href="#">Редактировать</a>
+                                    <a class="dropdown-item" href="#">Удалить</a>
+                                </div>
+                            {% else %} <!-- кнопка серая -->
+                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ t.endtime }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Готово</a>
+                                    <a class="dropdown-item" href="#">Редактировать</a>
+                                    <a class="dropdown-item" href="#">Удалить</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- правая колонка -->
+            <div class="col">
+
+                <!-- лента -->
+                <div id="news" class="mx-2 my-2 bg-dark text-center py-1 px-1">
+                    <h4>News</h4>
+                    {% for n in user.news %}
+                    <div class="d-flex justify-content-between">
+                        <span class="font-weight-bold">{{ n.title }}</span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ n.time }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Спрятать</a>
+                                    <a class="dropdown-item" href="#">Поделиться</a>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="text-left">{{ n.body }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container">
+
+
+
+
+    <!--footer-->
+</body>

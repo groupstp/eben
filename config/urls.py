@@ -16,6 +16,7 @@ urlpatterns = [
     # User management
     url(r'^users/', include('eben.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
+    url('^messager/', include('eben.chat.urls'), name='chat'),
 
     # Your stuff: custom urls includes go here
 

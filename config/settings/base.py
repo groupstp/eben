@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'eben.users.apps.UsersConfig',
+    'eben.chat.apps.ChatConfig',
     # Your stuff: custom apps go here
 ]
 

@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>Chat</title>
+</head>
+<body>
+  <p> user_id : {{ user.id}}</p>
+  <h3>Список диалогов</h3>
+  
+  {{dialogs}}
+  <form action="/num-new-messages/" method="POST">
+        <input type="submit" value="num mew message">
+  </form>
+
+  <form action="/num-new-messages/" method="POST">
+        <p><input type="number" name="dialog_id" value="0"></p>
+        <p><textarea name="text"></textarea></p>
+        <input type="submit" value="send">
+  </form>
+
+  <form action="/messager/new-dialog/" method="GET">
+        <p><input name="user_id" value=""></p>
+        <input type="submit">
+  </form>
+</body>
+</html>
+

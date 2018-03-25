@@ -103,11 +103,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="form-horizontal" name="editted" id="edit_profile" method="POST" action="{% url 'users:update' %}" enctype="multipart/form-data">
+        <form class="form-horizontal" name="editted" id="edit_profile" method="POST" action="{% url 'users:update' user.username %}" enctype="multipart/form-data">
         <div class="modal-body" id = "inner-form">
           <script type="text/javascript">
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', "{% url 'users:update' %}", false);
+            xhr.open('GET', "{% url 'users:update' user.username %}", false);
             xhr.send();
             if (xhr.status != 200) {
               alert(xhr.status + ': ' + xhr.statusText);

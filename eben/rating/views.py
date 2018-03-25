@@ -8,7 +8,7 @@ from .models import AllRating, Rating, HistoryRating
 
 class AllRatingDetail(generics.RetrieveAPIView):
     """
-    Получение полного рейтинга пользователя
+    Получение полного рейтинга пользователя.
     """
     queryset = AllRating.objects.all()
     serializer_class = AllRatingSerializer
@@ -18,6 +18,9 @@ class AllRatingDetail(generics.RetrieveAPIView):
 
 
 class RatingList(generics.ListAPIView):
+    """
+    Получение списка рейтинга одного пользователя по всем категориям.
+    """
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     renderer_classes = [JSONRenderer, ]
@@ -26,6 +29,9 @@ class RatingList(generics.ListAPIView):
 
 
 class RatingCategoryList(generics.ListAPIView):
+    """
+    Получение списка рейтинга одной категории по всем пользователям.
+    """
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     renderer_classes = [JSONRenderer, ]
@@ -34,6 +40,9 @@ class RatingCategoryList(generics.ListAPIView):
 
 
 class RatingDetail(generics.RetrieveAPIView):
+    """
+    Получение рейтинга пользователя по одной категории
+    """
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     renderer_classes = [JSONRenderer, ]
@@ -41,6 +50,9 @@ class RatingDetail(generics.RetrieveAPIView):
 
 
 class HistoryList(generics.ListAPIView):
+    """
+    Получение истории рейтинга одного пользователя.
+    """
     queryset = HistoryRating.objects.all()
     serializer_class = HistoryRatingSerializer
     renderer_classes = [JSONRenderer, ]

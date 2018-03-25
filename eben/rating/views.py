@@ -1,38 +1,48 @@
-from django.http import Http404
-from django.views.generic import DetailView, ListView
-from django.utils.translation import ugettext as _
+from rest_framework import generics, permissions
+from rest_framework.renderers import JSONRenderer
 
-from .models import AllRating, Rating
+from .serializers import RatingSerializer, AllRatingSerializer, HistoryRatingSerializer
 
-
-class AllRatingDetail(DetailView):
-    model = AllRating
-    slug_field = 'user.username'
-    slug_url_kwarg = 'user.username'
+from .models import AllRating, Rating, HistoryRating
 
 
-class RatingList(ListView):
-    model = Rating
-    slug_field = 'rating' + AllRatingDetail.slug_field
-    slug_url_kwarg = 'rating' + AllRatingDetail.slug_url_kwarg
+class AllRatingDetail(generics.RetrieveAPIView):
+    """
+    Получение полного рейтинга пользователя
+    """
+    queryset = AllRating.objects.all()
+    serializer_class = AllRatingSerializer
+    renderer_classes = [JSONRenderer, ]
+    lookup_field = 'user.username'
+    permission_classes = permissions.IsAuthenticated
 
 
-class RatingDetail(DetailView):
-    model = Rating
-    slug_field = 'rating' + AllRatingDetail.slug_field
-    slug_url_kwarg = 'rating' + AllRatingDetail.slug_url_kwarg
+class RatingList(generics.ListAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+    renderer_classes = [JSONRenderer, ]
+    lookup_field = 'rating'
+    permission_classes = permissions.IsAuthenticated
 
-    def get_object(self):
-        queryset = self.get_queryset()
-        username = self.kwargs.get(self.slug_url_kwarg)
-        category = self.kwargs.get(self.slug_url_kwarg)
-        if category is not None:
-            queryset = queryset.filter(**{category: category})
-        if username is not None:
-            queryset = queryset.filter(**{username: username})
-        try:
-            obj = queryset.get()
-        except queryset.model.DoesNotExist:
-            raise Http404(_("No %(verbose_name)s found matching the query") %
-                          {'verbose_name': queryset.model._meta.verbose_name})
-        return obj
+
+class RatingCategoryList(generics.ListAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+    renderer_classes = [JSONRenderer, ]
+    lookup_field = 'category'
+    permission_classes = permissions.IsAuthenticated
+
+
+class RatingDetail(generics.RetrieveAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+    renderer_classes = [JSONRenderer, ]
+    permission_classes = permissions.IsAuthenticated
+
+
+class HistoryList(generics.ListAPIView):
+    queryset = HistoryRating.objects.all()
+    serializer_class = HistoryRatingSerializer
+    renderer_classes = [JSONRenderer, ]
+    lookup_field = 'rating'
+    permission_classes = permissions.IsAuthenticated

@@ -60,6 +60,8 @@ LOCAL_APPS = [
     # custom users app
     'eben.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'eben.rating.apps.RatingConfig',
+
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

@@ -97,7 +97,7 @@ def users_by_dialog(dialog_id):
     users_to_dialog = User_to_dialog.objects.filter(dialog_id = dialog_id)
     users = []
     for obj in users_to_dialog:
-        user = User.objects.get(id = obj.user_id)
+        user = User.objects.get(id = obj.user.id)
         users += [user]
 
     return users
@@ -108,21 +108,28 @@ def del_message(request):
     Удалить сообщение для пользователя,
     если все пользователи удалили сообщение, то оно удаляется из БД
     """
-    message_id = request.POST['message_id']
-    user_id = request.POST['user_id']
-    user_to_message = Message_to_user.objects.filter(user_id = user_id).get(message_id = message_id)
-    user_to_message.status_del = True
-    user_to_message.save()
+    if request.user.is_active:
+        #message_id = request.POST['message_id']
+        #user_id = request.POST['user_id']
+        messages_id = request.GET['messages_id']
+        user_id = request.GET['user_id']
+        for message_id in messages_id:
+            user_to_message = Message_to_user.objects.filter(user_id = user_id).get(message_id = message_id)
+            user_to_message.status_del = True
+            user_to_message.save()
 
-    user_to_messages = Message_to_user.objects.filter(message_id = message_id)
-    f = True
-    for obj in user_to_messages:
-        if obj.status_del == False:
-            f = False
-    if f:
-        user_to_messages.delite()
-        m = Message.objects.get(id = message_id)
-        m.delite()
+            user_to_messages = Message_to_user.objects.filter(message_id = message_id)
+            f = True
+            for obj in user_to_messages:
+                if obj.status_del == False:
+                    f = False
+            if f:
+                user_to_messages.delite()
+                m = Message.objects.get(id = message_id)
+                m.delite()
+        return HttpResponse('Ok!')
+    else:
+        return HttpResponse('No!')
 
 
 def del_dialog(request):
@@ -130,97 +137,135 @@ def del_dialog(request):
     Удаленире диалога мользователем,
     если сообщений в диалоге нету, то все записи из БД удаляются
     """
-    user_id = request.POST['user_id']
-    dialog_id = request.POST['dialog_id']
-    messages = Message.objects.filter(dialog_id = dialog_id)
-    for message in messages:
-        del_message(message.id, user_id)
-    if messages == None:
-        u = User_to_dialog.objects.filter(dialog_id = dialog_id)
-        u.delite()
-        d = Dialog.objects.get(id = dialog_id).delite()
-        d.delite()
+    if request.user.is_active:
+        #user_id = request.POST['user_id']
+        #dialog_id = request.POST['dialog_id']
+        user_id = request.GET['user_id']
+        dialog_id = request.GET['dialog_id']
+        messages = Message.objects.filter(dialog_id = dialog_id)
+        for message in messages:
+            del_message(message.id, user_id)
+        if messages == None:
+            u = User_to_dialog.objects.filter(dialog_id = dialog_id)
+            u.delite()
+            d = Dialog.objects.get(id = dialog_id)
+            d.delite()
+        return HttpResponse('Ok!')
+    else:
+        return HttpResponse('No!')
 
 
 def new_dialog(request):
     """
     Записывает данные нового диалога в БД
     """
-    user = request.user.id
-    user = User.objects.get(id=user)
-    users = request.GET['user_id']
-    users = User.objects.get(id=users)
-    dialog = Dialog(name=users.name ,user=user)
-    dialog.save()
-    #date = datetime.now(tz=None)
-    date = 11111111
-    user1_to_dialog = User_to_dialog(user=users, dialog_id=dialog.id, time=date)
-    user2_to_dialog = User_to_dialog(user=user, dialog_id=dialog.id, time=date)
-    user1_to_dialog.save()
-    user2_to_dialog.save()
-    return HttpResponse(dialog.id)
+    if request.user.is_active:
+        user = request.user.id
+        user = User.objects.get(id=user)
+        #users = request.GET['user_id']
+        users = request.GET['user_id']
+        users = User.objects.get(id=users)
+        dialog = Dialog(name=users.name ,user=user)
+        dialog.save()
+        #date = datetime.now(tz=None)
+        date = 11111111
+        user1_to_dialog = User_to_dialog(user=users, dialog_id=dialog, time=date)
+        user2_to_dialog = User_to_dialog(user=user, dialog_id=dialog, time=date)
+        user1_to_dialog.save()
+        user2_to_dialog.save()
+        return HttpResponse(dialog.id)
+    else:
+        return HttpResponse('No!')
 
 def new_group_dialog(request):
     """
     Метод создает новый групповой диалог
     """
-    users_id = request.POST['users_id']
-    dialog = Dialog(user=users_id[0])
-    dialog.save()
-    for user_id in users_id:
-        user_to_dialog = User_to_dialog(user=user_id, dialog_id=dialog.id, time=date)
-        user_to_dialog.save()
-    return dialog.id
+    if request.user.is_active: 
+        #users_id = request.POST['users_id']
+        users_id = request.GET['users_id']
+        user = User.objects.get(id=user_id[0])
+        dialog = Dialog(user=user)
+        dialog.save()
+        time = 11111111
+        for user_id in users_id:
+            user = User.objects.get(id=user_id)
+            user_to_dialog = User_to_dialog(user_id=user, dialog_id=dialog, time=time)
+            user_to_dialog.save()
+        return HttpResponse(dialog.id)
+    else:
+        return HttpResponse('No!')
 
 def add_user_to_dialog(request):
     """
     Добавляем пользователя в групповой диалог и даем доступ ко всем сообщениям диалога
     """
-    user_id = request.POST['user_id']
-    dialog_id = request.POST['dialog_id']
-    new_user_to_dialog = User_to_dialog(user=user_id, dialog_id=dialog_id, time=datetime.now(tz=None))
-    new_user_to_dialog.save()
-    messages = Message.objects.filter(dialog_id=dialog_id)
-    for message in messages:
-        m_t_u = Message_to_user(message_id=message.id, user_id=user_id, status=True, status_del=False)
-        m_t_u.save()
+    if request.user.is_active:
+        #user_id = request.POST['user_id']
+        #dialog_id = request.POST['dialog_id']
+        user_id = request.GET['user_id']
+        dialog_id = request.GET['dialog_id']
+        
+        time = 11111111
+        user = User.objects.get(id= user_id)
+        dialog = Dialog.objects.get(id=dialog_id)
+        new_user_to_dialog = User_to_dialog(user=user, dialog_id=dialog, time=time)
+        new_user_to_dialog.save()
+        messages = Message.objects.filter(dialog_id=dialog_id)
+        for message in messages:
+            m_t_u = Message_to_user(message_id=message, user_id=user, status=True, status_del=False)
+            m_t_u.save()
+        return HttpResponse('Ok!')
+    else:
+        return HttpResponse('No!')
 
 
 def new_message(request):
     """
     Добавляем новое сообщение в БД
     """
-    sender_id = request.user.id
-    time = datetime.now(tz=None)
-    text = request.POST['text']
-    dialog_id = request.POST['dialog_id']
+    if request.user.is_active:
+        sender_id = request.user.id
+        #time = datetime.now(tz=None)
+        time = 111111111
+        #text = request.POST['text']
+        #dialog_id = request.POST['dialog_id']
+        text = request.GET['text']
+        dialog_id = request.GET['dialog_id']
+        
 
-    message = Message(message=text, sender_id=sender_id, dialog_id=dialog_id, status=False, status_del=False,
-                      time=time)
-    message.save()
-    users = users_by_dialog(dialog_id)
-    for user in users:
-        if sender_id == user.id:
-            m_t_u = Message_to_user(message_id=message.id, user_id=user.id, status=True, status_del=False)
-            m_t_u.save()
-        else:
-            m_t_u = Message_to_user(message_id=message.id, user_id=user.id, status=False, status_del=False)
-            m_t_u.save()
-
+        message = Message(message=text, sender_id=sender_id, dialog_id=dialog_id,
+                          status=False, status_del=False, time=time)
+        message.save()
+        users = users_by_dialog(dialog_id)
+        for user in users:
+            if sender_id == user.id:
+                m_t_u = Message_to_user(message_id=message, user_id=user, status=True, status_del=False)
+                m_t_u.save()
+            else:
+                m_t_u = Message_to_user(message_id=message, user_id=user, status=False, status_del=False)
+                m_t_u.save()
+        return HttpResponse('Ok!')
+     else:
+        return HttpResponse('No!')
 
 def read_message(request):
     """
     Метод отмечает сообщение, как прочитанное
     """
-    message_id = request.POST['message_id']
-    message = Message.objects.get(id = message_id)
-    message.status = True
-    message_to_user = Message_to_user.object.get(message = message.id)
-    message_to_user.status = True
-    message.save()
-    message_to_user.save()
-
-
+    if request.user.is_active:
+        #message_id = request.POST['message_id']
+        messages_id = request.GET['messages_id']
+        for messege_id in messages_id:
+            message = Message.objects.get(id = message_id)
+            message.status = True
+            message.save()
+            message_to_user = Message_to_user.object.get(message_id = message.id)
+            message_to_user.status = True
+            message_to_user.save()
+        return HttpResponse('Ok!')
+    else:
+        return HttpResponse('No!')
 
 
 

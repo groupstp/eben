@@ -25,6 +25,9 @@ urlpatterns = [
         name='account_confirm_email'),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
 
+    # Rating app
+    url(r'^rating/', include('eben.rating.urls')),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

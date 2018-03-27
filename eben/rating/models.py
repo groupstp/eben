@@ -20,5 +20,5 @@ class Rating(models.Model):
 class HistoryRating(models.Model):
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
     action = models.CharField(_("Action that changed the rating"), max_length=120)
-    value = models.IntegerField(_("Value on which the rating has changed"), editable=False)
+    value = models.IntegerField(_("Value on which the rating has changed"))
     date_time = models.DateTimeField(_("Time of rating change"), auto_now_add=True)

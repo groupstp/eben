@@ -3,11 +3,13 @@ from django.shortcuts import render
 from eben.chat.models import Dialog, User_to_dialog, Message, Message_to_user
 from eben.users.models import User
 from django.db.models import Q
+from django.template.context_processors import csrf
+from django.shortcuts import render_to_response
 import datetime
 
-def messager(request):
+def dialogs(request):
     """
-    Выводит список диалогов пользователя и сообщения заданного диалога
+    Выводит список диалогов пользователя
     """
     #выбираем пользователя
     user = request.user
@@ -18,21 +20,23 @@ def messager(request):
         #dialog = user_to_dialog[0].dialog_id
         #messages = Message.objects.filter(dialog_id = dialog).order_by("time")
         #users = users_by_dialog(dialog)
-        #num_new_mes_dialog = num_new_messages_to_dialogs(user_to_dialog)
+        num_new_mes_dialog = num_new_messages_to_dialogs(user_to_dialog)
         
-        return render(request, 'chat/messager.html', {'user': user, 
-                               'dialogs': dialogs})
+        return render(request, 'chat/dialogs.html', {'user': user, 'dialogs': dialogs,
+                            'num_new_mes_dialog': num_new_mes_dialog})
     else:
         return HttpResponse("By!") 
 
-'''
+
 def messager(request):
     user = request.user
     if user.is_active:
-        return HttpResponse(user.id)
+        c = {}
+        c.update(csrf(request))
+        return render(request, 'chat/messager.html', c)
     else:
         return HttpResponse("By!")
-'''
+
 
 def get_num_new_message(request):
     """
@@ -64,19 +68,19 @@ def get_message(request):
     """
 
     dialog_id = request.POST['dialog_id']
-    list = request.POST['list']
+    lists = int(request.POST['list'])
     dialog = Dialog.objects.get(id = dialog_id)
 
     step = 50
     num = len(Message.objects.filter(dialog_id = dialog.id))
-    if num > request.POST['list'] * step:
+    if num > lists * step:
         messages = Message.objects.filter(dialog_id = dialog.id). \
-                       order_by('time')[list * step: (1 + list) * step]
+                       order_by('time')[lists * step: (1 + lists) * step]
     else:
         messages = Message.objects.filter(dialog_id=dialog.id). \
-                       order_by('time')[list * step: num]
+                       order_by('time')[lists * step: num]
 
-    return HttpResponse(messages)
+    return render(request, 'chat/messages.html', {'messages': messages})
 
 
 def num_new_messages_to_dialogs(user_to_dialog):
@@ -87,6 +91,8 @@ def num_new_messages_to_dialogs(user_to_dialog):
     for dialog in user_to_dialog:
         if dialog.num_new_mes > 0:
             num_new_mes_dialog.update({dialog.dialog.id: dialog.num_new_mes})
+        else:
+            num_new_mes_dialog.update({dialog.dialog.id: 0})
     return num_new_mes_dialog
 
 
@@ -109,10 +115,8 @@ def del_message(request):
     если все пользователи удалили сообщение, то оно удаляется из БД
     """
     if request.user.is_active:
-        #message_id = request.POST['message_id']
-        #user_id = request.POST['user_id']
-        messages_id = request.GET['messages_id']
-        user_id = request.GET['user_id']
+        messages_id = request.POST['messages_id']
+        user_id = request.user.id
         for message_id in messages_id:
             user_to_message = Message_to_user.objects.filter(user_id = user_id).get(message_id = message_id)
             user_to_message.status_del = True
@@ -138,10 +142,8 @@ def del_dialog(request):
     если сообщений в диалоге нету, то все записи из БД удаляются
     """
     if request.user.is_active:
-        #user_id = request.POST['user_id']
-        #dialog_id = request.POST['dialog_id']
-        user_id = request.GET['user_id']
-        dialog_id = request.GET['dialog_id']
+        user_id = request.user.id
+        dialog_id = request.POST['dialog_id']
         messages = Message.objects.filter(dialog_id = dialog_id)
         for message in messages:
             del_message(message.id, user_id)
@@ -162,13 +164,11 @@ def new_dialog(request):
     if request.user.is_active:
         user = request.user.id
         user = User.objects.get(id=user)
-        #users = request.GET['user_id']
-        users = request.GET['user_id']
-        users = User.objects.get(id=users)
+        user_id = request.POST['user_id']
+        users = User.objects.get(id=user_id)
         dialog = Dialog(name=users.name ,user=user)
         dialog.save()
-        #date = datetime.now(tz=None)
-        date = 11111111
+        date = time.time()
         user1_to_dialog = User_to_dialog(user=users, dialog_id=dialog, time=date)
         user2_to_dialog = User_to_dialog(user=user, dialog_id=dialog, time=date)
         user1_to_dialog.save()
@@ -182,12 +182,11 @@ def new_group_dialog(request):
     Метод создает новый групповой диалог
     """
     if request.user.is_active: 
-        #users_id = request.POST['users_id']
-        users_id = request.GET['users_id']
+        users_id = request.POST['users_id']
         user = User.objects.get(id=user_id[0])
         dialog = Dialog(user=user)
         dialog.save()
-        time = 11111111
+        time = time.time()
         for user_id in users_id:
             user = User.objects.get(id=user_id)
             user_to_dialog = User_to_dialog(user_id=user, dialog_id=dialog, time=time)
@@ -201,12 +200,10 @@ def add_user_to_dialog(request):
     Добавляем пользователя в групповой диалог и даем доступ ко всем сообщениям диалога
     """
     if request.user.is_active:
-        #user_id = request.POST['user_id']
-        #dialog_id = request.POST['dialog_id']
-        user_id = request.GET['user_id']
-        dialog_id = request.GET['dialog_id']
+        user_id = request.POST['user_id']
+        dialog_id = request.POST['dialog_id']
         
-        time = 11111111
+        time = time.time()
         user = User.objects.get(id= user_id)
         dialog = Dialog.objects.get(id=dialog_id)
         new_user_to_dialog = User_to_dialog(user=user, dialog_id=dialog, time=time)
@@ -226,16 +223,12 @@ def new_message(request):
     """
     if request.user.is_active:
         sender_id = request.user.id
-        #time = datetime.now(tz=None)
-        time = 111111111
-        #text = request.POST['text']
-        #dialog_id = request.POST['dialog_id']
-        text = request.GET['text']
-        dialog_id = request.GET['dialog_id']
+        text = request.POST['text']
+        dialog_id = request.POST['dialog_id']
         
 
         message = Message(message=text, sender_id=sender_id, dialog_id=dialog_id,
-                          status=False, status_del=False, time=time)
+                          status=False, status_del=False)
         message.save()
         users = users_by_dialog(dialog_id)
         for user in users:
@@ -246,7 +239,7 @@ def new_message(request):
                 m_t_u = Message_to_user(message_id=message, user_id=user, status=False, status_del=False)
                 m_t_u.save()
         return HttpResponse('Ok!')
-     else:
+    else:
         return HttpResponse('No!')
 
 def read_message(request):
@@ -254,8 +247,7 @@ def read_message(request):
     Метод отмечает сообщение, как прочитанное
     """
     if request.user.is_active:
-        #message_id = request.POST['message_id']
-        messages_id = request.GET['messages_id']
+        message_id = request.POST['message_id']
         for messege_id in messages_id:
             message = Message.objects.get(id = message_id)
             message.status = True

@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^new-group-dialog/$', views.new_group_dialog), #Скрипт создания нового группового диалога
     url(r'^new-dialog/$', views.new_dialog), #Скрипт создания нового диалога
     url(r'^del-dialog/$', views.del_dialog), #Скрипт удаления диалога пользователем
-    url(r'^del-message/$', views.del_message)] #Скрипт удаления соощения
+    url(r'^del-message/$', views.del_message), #Скрипт удаления соощения
+    url(r'^dialogs/$', views.dialogs)] #Скрипт получения списка диалогов

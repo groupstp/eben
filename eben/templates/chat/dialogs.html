@@ -1,0 +1,12 @@
+<html>
+<head>
+  <title>Chat</title>
+</head>
+<body>
+  <h1> Список диалогов пользователя {{ user.name }}</h1>
+   {{dialogs}}
+  {% for dialog in dialogs %}
+     <p> {{dialog.id}} | {{dialog.name}} | {{dialog.user}}  | {{ num_new_mes_dialog }} </p>
+  {% endfor %}
+</body>
+</html>

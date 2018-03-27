@@ -3,24 +3,83 @@
   <title>Chat</title>
 </head>
 <body>
-  <p> user_id : {{ user.id}}</p>
-  <h3>Список диалогов</h3>
+
+  {{request.user}} id: {{request.user.id}}
+
+  <hr>
+
+  <form action="/messager/num-new-messages/" method="POST">{% csrf_token %}
+        <input type="submit" value="кол-во новых сообщений">
+  </form>
+
+  <hr>
+
+  <form action="/messager/dialogs/" method="POST">{% csrf_token %}
+        <input type="submit" value="список диалогов">
+  </form>
+
+  <hr>
+
+  <p> Создать новый диалог </p>
+  <form action="/messager/new-dialog/" method="POST">{% csrf_token %}
+        <p><input name="user_id" value="user_id"></p>
+        <input type="submit" value="создать новый диалог">
+  </form>
+
+  <hr>
   
-  {{dialogs}}
-  <form action="/num-new-messages/" method="POST">
-        <input type="submit" value="num mew message">
+  <form action="/messager/get-messages-to-dialog/" method="POST">{% csrf_token %}
+        <p><input name="dialog_id" value="dialog_id"></p>
+        <p><input name="list" value="list"></p>
+        <input type="submit" value="список сообщений">
+  </form>
+   
+  <hr>
+
+  <form action="/messager/del-message/" method="POST">{% csrf_token %}
+        <p><input name="messages_id" value="messages_id"></p>
+        <input type="submit" value="удалить сообщение">
+  </form>
+  
+  <hr>
+
+  <form action="/messager/del-dialog/" method="POST">{% csrf_token %}
+        <p><input name="dialog_id" value="dialog_id"></p>
+        <input type="submit" value="удалить диалог">
   </form>
 
-  <form action="/num-new-messages/" method="POST">
-        <p><input type="number" name="dialog_id" value="0"></p>
+  <hr>
+
+  <form action="/messager/new_group_dialog/" method="POST">{% csrf_token %}
+        <p><input name="user_id" value="user_id"></p>
+        <input type="submit" value="создать новый диалог">
+  </form>
+
+  <hr>
+
+  <form action="/messager/add-user-to-dialog/" method="POST">{% csrf_token %}
+        <p><input name="dialog_id" value="dialog_id"></p>
+        <p><input name="user_id" value="user_id"></p>
+        <input type="submit" value="добавить пользователя в диалог">
+  </form> 
+
+  <hr>
+
+  <form action="/messager/new-message/" method="POST">{% csrf_token %}
+        <p><input name="dialog_id" value="dialog_id"></p>
         <p><textarea name="text"></textarea></p>
-        <input type="submit" value="send">
+        <input type="submit" value="отправить сообщение">
+  </form>   
+
+  <hr>
+ 
+  <form action="/messager/read-message/" method="POST">{% csrf_token %}
+        <p><input name="messages_id" value="messages_id"></p>
+        <input type="submit" value="прочитать сообщение">
   </form>
 
-  <form action="/messager/new-dialog/" method="GET">
-        <p><input name="user_id" value=""></p>
-        <input type="submit">
-  </form>
+  <hr>
+
 </body>
 </html>
 

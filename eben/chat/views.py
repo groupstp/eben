@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.template.context_processors import csrf
 from django.shortcuts import render_to_response
 import datetime
+from django.utils.timezone import utc
 
 def dialogs(request):
     """
@@ -169,8 +170,8 @@ def new_dialog(request):
         dialog = Dialog(name=users.name ,user=user)
         dialog.save()
         date = time.time()
-        user1_to_dialog = User_to_dialog(user=users, dialog_id=dialog, time=date)
-        user2_to_dialog = User_to_dialog(user=user, dialog_id=dialog, time=date)
+        user1_to_dialog = User_to_dialog(user=users.id, dialog_id=dialog.id, time=date)
+        user2_to_dialog = User_to_dialog(user=user.id, dialog_id=dialog.id, time=date)
         user1_to_dialog.save()
         user2_to_dialog.save()
         return HttpResponse(dialog.id)
@@ -184,12 +185,12 @@ def new_group_dialog(request):
     if request.user.is_active: 
         users_id = request.POST['users_id']
         user = User.objects.get(id=user_id[0])
-        dialog = Dialog(user=user)
+        dialog = Dialog(user=user.id)
         dialog.save()
         time = time.time()
         for user_id in users_id:
             user = User.objects.get(id=user_id)
-            user_to_dialog = User_to_dialog(user_id=user, dialog_id=dialog, time=time)
+            user_to_dialog = User_to_dialog(user_id=user.id, dialog_id=dialog.id, time=time)
             user_to_dialog.save()
         return HttpResponse(dialog.id)
     else:
@@ -206,11 +207,11 @@ def add_user_to_dialog(request):
         time = time.time()
         user = User.objects.get(id= user_id)
         dialog = Dialog.objects.get(id=dialog_id)
-        new_user_to_dialog = User_to_dialog(user=user, dialog_id=dialog, time=time)
+        new_user_to_dialog = User_to_dialog(user=userid, dialog_id=dialog.id, time=time)
         new_user_to_dialog.save()
         messages = Message.objects.filter(dialog_id=dialog_id)
         for message in messages:
-            m_t_u = Message_to_user(message_id=message, user_id=user, status=True, status_del=False)
+            m_t_u = Message_to_user(message_id=message.id, user_id=user.id, status=True, status_del=False)
             m_t_u.save()
         return HttpResponse('Ok!')
     else:
@@ -225,18 +226,18 @@ def new_message(request):
         sender_id = request.user.id
         text = request.POST['text']
         dialog_id = request.POST['dialog_id']
-        
+        time = datetime.datetime.utcnow().replace(tzinfo=utc).timestamp()
 
         message = Message(message=text, sender_id=sender_id, dialog_id=dialog_id,
-                          status=False, status_del=False)
+                          status=False, status_del=False, time=time)
         message.save()
         users = users_by_dialog(dialog_id)
         for user in users:
             if sender_id == user.id:
-                m_t_u = Message_to_user(message_id=message, user_id=user, status=True, status_del=False)
+                m_t_u = Message_to_user(message_id=message.id, user_id=user.id, status=True, status_del=False)
                 m_t_u.save()
             else:
-                m_t_u = Message_to_user(message_id=message, user_id=user, status=False, status_del=False)
+                m_t_u = Message_to_user(message_id=message.id, user_id=user.id, status=False, status_del=False)
                 m_t_u.save()
         return HttpResponse('Ok!')
     else:
@@ -247,12 +248,12 @@ def read_message(request):
     Метод отмечает сообщение, как прочитанное
     """
     if request.user.is_active:
-        message_id = request.POST['message_id']
-        for messege_id in messages_id:
+        messages_id = request.POST['messages_id']
+        for message_id in messages_id:
             message = Message.objects.get(id = message_id)
             message.status = True
             message.save()
-            message_to_user = Message_to_user.object.get(message_id = message.id)
+            message_to_user = Message_to_user.objects.filter(message_id = message.id).get(user_id=request.user.id)
             message_to_user.status = True
             message_to_user.save()
         return HttpResponse('Ok!')

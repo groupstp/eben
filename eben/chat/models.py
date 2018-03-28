@@ -12,7 +12,7 @@ class Dialog(models.Model):
 class User_to_dialog(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     dialog = models.ForeignKey(Dialog, on_delete=models.PROTECT)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DurationField()
     objects = models.Manager()
     num_new_mes = models.PositiveIntegerField(default=0)
 
@@ -23,7 +23,7 @@ class Message(models.Model):
     dialog = models.ForeignKey(Dialog, on_delete=models.PROTECT)
     status = models.BooleanField()
     status_del = models.BooleanField()
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DurationField()
     objects = models.Manager()
 
     class Meta:

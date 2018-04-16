@@ -10,8 +10,6 @@
         }
     },
     "objectViews": {
-        "helpDesk": "helpDesk.json",
-        "supply": "supply.json",
         "role": "role.json"
     }
 }

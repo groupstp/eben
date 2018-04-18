@@ -85,7 +85,7 @@ class controller {
         catch(e){
             logger.write("warning", `Загрузка описания интерфейса из файла ${filename} выполнена с ошибкой.`);
             //return Promise.reject();
-            throw "Yobanaya hujnya";
+            throw `Ошибка загрузки описания интерфейса из файла ${filename}`;
         }
         return data.name;
     }

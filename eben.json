@@ -5,18 +5,18 @@
     "methods": {},
     "objects": {
         "users_sn": {
-            "utility": "gag",
+            "utility": "eben",
             "uObject": "users_sn",
             "fields":{
                 "description": "username"
             }
         },
         "avatar": {
-            "utility": "gag",
+            "utility": "eben",
             "uObject": "avatar_table"
         },
         "socialNetwork_subscriberStorage": {
-            "utility": "gag",
+            "utility": "eben",
             "uObject": "socialNetwork_subscriberStorage_table"
         }
     }

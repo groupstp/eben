@@ -10,8 +10,7 @@
         }
     },
     "objectViews": {
-        "helpDesk": "helpDesk.json",
-        "supply": "supply.json",
+        "eben": "eben.json",
         "role": "role.json"
     }
 }

@@ -1,0 +1,23 @@
+{
+    "name": "socialNetwork",
+    "common": "objectView",
+    "description": "Социальная сеть",
+    "methods": {},
+    "objects": {
+        "users_sn": {
+            "utility": "gag",
+            "uObject": "users_sn",
+            "fields":{
+                "description": "username"
+            }
+        },
+        "avatar": {
+            "utility": "gag",
+            "uObject": "avatar_table"
+        },
+        "socialNetwork_subscriberStorage": {
+            "utility": "gag",
+            "uObject": "socialNetwork_subscriberStorage_table"
+        }
+    }
+}

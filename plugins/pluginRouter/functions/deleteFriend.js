@@ -1,102 +1,25 @@
 import {sender} from "./baseClasses/sendClass";
-import {util} from "./baseClasses/utilityClass";
-import {service} from "./baseClasses/service";
+import {addFriend} from "./addFriend"
 
-class pluginClass extends service{
+class pluginClass extends addFriend{
     constructor(){
         super(name);
     }
 
-    __checkParameters(parameters){
-        if(!parameters.parameters.project || !parameters.parameters.object || !parameters.values[0].friend){
-            throw "Необходимо указать параметры 'проект', 'объект(пользователь)' и 'друг(пользователь)' для добавления друга."
-        }
-    }
-
-    __getFilterForFriend(user, field, friend){
-        return {
-            comparisons: {
-                user: {
-                    left: {
-                        type: "field",
-                        value: "userID"
-                    },
-                    right: {
-                        type: "value",
-                        value: user
-                    },
-                    sign: "equal"
-                },
-                friend: {
-                    left: {
-                        type: "field",
-                        value: field
-                    },
-                    right: {
-                        type: "value",
-                        value: friend
-                    },
-                    sign: "equal"
-                }
-            },
-            tree: {
-                and: ["user", "friend"]
-            }
-        }
-    }
-
-    __checkFriend(project, object, field, user, friend){
-        return sender.send({
-            object: `${project}.${object}`,
-            method: "get",
-            parameters: {
-                filter: this.__getFilterForFriend(user, field, friend)
-            }
-        });
-    }
-
-    __addSentRequest(project, user, friend){
-        return sender.send({
-            object: `${project}.friendsRequests`,
-            method: "insert",
-            parameters: {
-                values: {
-                    userID: user,
-                    sent_request: friend
-                }
-            }
-        });
-    }
-
-    __addRequest(project, user, friend){
-        return sender.send({
-            object: `${project}.friendsRequests`,
-            method: "insert",
-            parameters: {
-                values: {
-                    userID: user,
-                    request: friend
-                }
-            }
-        });
-    }
-
+    /**
+     * Разрыв связей между пользователями(удаление из друзей)
+     * @param project
+     * @param user
+     * @param friend
+     * @returns {*}
+     * @private
+     */
     __deleteFriend(project, user, friend){
         return sender.send({
             object: `${project}.friends`,
             method: "delete",
             parameters: {
                 filter: this.__getFilterForFriend(user, "friendID", friend)
-            }
-        });
-    }
-
-    __deleteRequest(project, user, field, friend){
-        return sender.send({
-            object: `${project}.friendsRequests`,
-            method: "delete",
-            parameters: {
-                filter: this.__getFilterForFriend(user, field, friend)
             }
         });
     }

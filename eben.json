@@ -17,6 +17,18 @@
         },
         "socialNetwork_subscriberStorage": {
             "utility": "eben",
+            "uObject": "avatar_table"
+        },
+        "friends": {
+            "utility": "eben",
+            "uObject": "friends_table"
+        },
+        "friendsRequests": {
+            "utility": "eben",
+            "uObject": "friends_requests_table"
+        },
+        "socialNetwork_subscriberStorage": {
+            "utility": "eben",
             "uObject": "socialNetwork_subscriberStorage_table"
         }
     }

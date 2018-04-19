@@ -5,11 +5,12 @@
     "methods": {},
     "objects": {
         "root_subscriberStorage": {
-            "utility": "gag",
+            "utility": "eben",
             "uObject": "root_subscriberStorage_table"
         }
     },
     "objectViews": {
+        "eben": "eben.json",
         "role": "role.json"
     }
 }

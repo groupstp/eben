@@ -1,0 +1,24 @@
+{
+  "name": "friends",
+  "common": "reference",
+  "description": "Список друзей",
+  "fields": {
+    "ID": {
+      "type": "uuid",
+      "isPrimary": true,
+      "readonly": true
+    },
+    "userID": {
+      "type": "ref",
+      "ref": "users_sn"
+    },
+    "request": {
+      "type": "link",
+      "link": "users_sn"
+    },
+    "sent_request": {
+      "type": "link",
+      "link": "users_sn"
+    }
+  }
+}

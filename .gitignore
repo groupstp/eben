@@ -2,7 +2,7 @@ node_modules
 log
 .idea
 package-lock.json
-/Utilits/configs/gag.json
+/Utilits/configs/eben.json
 README/
 /Storage/
 /bu/

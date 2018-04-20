@@ -1,5 +1,4 @@
 import {sender} from "./baseClasses/sendClass";
-import {util} from "./baseClasses/utilityClass";
 import {service} from "./baseClasses/service";
 
 class pluginClass extends service{
@@ -7,13 +6,21 @@ class pluginClass extends service{
         super(name);
     }
 
-    static __checkParameters(parameters){
+    __checkParameters(parameters){
         if(!parameters.parameters.project || !parameters.parameters.object || !parameters.values[0].friend){
             throw "Необходимо указать параметры 'проект', 'объект(пользователь)' и 'друг(пользователь)' для добавления друга."
         }
     }
 
-    static __getFilterForFriend(user, field, friend){
+    /**
+     * Получение фильтра для объекта друзья/запросы по пользователю и другу/запросу
+     * @param user Значение сравниваемое с полем 'userID'
+     * @param field Название поля по которому идет сравнение
+     * @param friend Значение сравниваемое с полем название, которого передали в `field`
+     * @returns {{comparisons: {user: {left: {type: string, value: string}, right: {type: string, value: *}, sign: string}, friend: {left: {type: string, value: *}, right: {type: string, value: *}, sign: string}}, tree: {and: string[]}}}
+     * @private
+     */
+    __getFilterForFriend(user, field, friend){
         return {
             comparisons: {
                 user: {
@@ -45,16 +52,34 @@ class pluginClass extends service{
         }
     }
 
+    /**
+     * Получение объекта друга/запроса
+     * @param project
+     * @param object Название объекта
+     * @param field Название поля по которому фильтруется объект
+     * @param user Пользователь чей объект
+     * @param friend Пользователь - друг/запрос в друзья
+     * @returns {*}
+     * @private
+     */
     __checkFriend(project, object, field, user, friend){
         return sender.send({
             object: `${project}.${object}`,
             method: "get",
             parameters: {
-                filter: pluginClass.__getFilterForFriend(user, field, friend)
+                filter: this.__getFilterForFriend(user, field, friend)
             }
         });
     }
 
+    /**
+     * Создание отправленного запроса
+     * @param project
+     * @param user Пользователь, который отправил запрос
+     * @param friend Пользователь, которому предназначен запрос
+     * @returns {*}
+     * @private
+     */
     __addSentRequest(project, user, friend){
         return sender.send({
             object: `${project}.friendsRequests`,
@@ -68,6 +93,14 @@ class pluginClass extends service{
         });
     }
 
+    /**
+     * Создание принятого запроса в друзья
+     * @param project
+     * @param user Пользователь, которому запрос пришел
+     * @param friend Пользователь от которого пришел запрос
+     * @returns {*}
+     * @private
+     */
     __addRequest(project, user, friend){
         return sender.send({
             object: `${project}.friendsRequests`,
@@ -81,6 +114,14 @@ class pluginClass extends service{
         });
     }
 
+    /**
+     * Создание связи(дружбы) между пользователями
+     * @param project
+     * @param user
+     * @param friend
+     * @returns {*}
+     * @private
+     */
     __addFriend(project, user, friend){
         return sender.send({
             object: `${project}.friends`,
@@ -94,18 +135,27 @@ class pluginClass extends service{
         });
     }
 
+    /**
+     * Удаление запроса в друзья
+     * @param project
+     * @param user
+     * @param field Название поля (принятый/отправленный запрос)
+     * @param friend
+     * @returns {*}
+     * @private
+     */
     __deleteRequest(project, user, field, friend){
         return sender.send({
             object: `${project}.friendsRequests`,
             method: "delete",
             parameters: {
-                filter: pluginClass.__getFilterForFriend(user, field, friend)
+                filter: this.__getFilterForFriend(user, field, friend)
             }
         });
     }
 
     async run(parameters, token, deep = 0){
-        pluginClass.__checkParameters(parameters);
+        this.__checkParameters(parameters);
 
         let {project, object} = parameters.parameters;
         let friend = parameters.values[0].friend;

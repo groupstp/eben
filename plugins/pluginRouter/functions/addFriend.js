@@ -7,13 +7,13 @@ class pluginClass extends service{
         super(name);
     }
 
-    __checkParameters(parameters){
+    static __checkParameters(parameters){
         if(!parameters.parameters.project || !parameters.parameters.object || !parameters.values[0].friend){
             throw "Необходимо указать параметры 'проект', 'объект(пользователь)' и 'друг(пользователь)' для добавления друга."
         }
     }
 
-    __getFilterForFriend(user, field, friend){
+    static __getFilterForFriend(user, field, friend){
         return {
             comparisons: {
                 user: {
@@ -50,7 +50,7 @@ class pluginClass extends service{
             object: `${project}.${object}`,
             method: "get",
             parameters: {
-                filter: this.__getFilterForFriend(user, field, friend)
+                filter: pluginClass.__getFilterForFriend(user, field, friend)
             }
         });
     }
@@ -99,13 +99,13 @@ class pluginClass extends service{
             object: `${project}.friendsRequests`,
             method: "delete",
             parameters: {
-                filter: this.__getFilterForFriend(user, field, friend)
+                filter: pluginClass.__getFilterForFriend(user, field, friend)
             }
         });
     }
 
     async run(parameters, token, deep = 0){
-        this.__checkParameters(parameters);
+        pluginClass.__checkParameters(parameters);
 
         let {project, object} = parameters.parameters;
         let friend = parameters.values[0].friend;

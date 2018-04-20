@@ -1,0 +1,13 @@
+{
+  "type": "pg",
+  "name": "eben",
+  "config": {
+    "user": "eben",
+    "password": "eben",
+    "port": "5432",
+    "host": "localhost",
+    "database": "eben",
+    "max": 100,
+    "native": false
+  }
+}

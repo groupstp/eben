@@ -2,25 +2,21 @@ from django.conf.urls import url
 
 from . import views
 
+
 urlpatterns = [
     url(
         regex=r'^$',
-        view=views.UserListView.as_view(),
-        name='list'
+        view=views.UserViewList.as_view(),
+        name='users'
     ),
     url(
-        regex=r'^~redirect/$',
-        view=views.UserRedirectView.as_view(),
-        name='redirect'
+        regex=r'^(?P<username>[a-zA-Z0-9]+)/$',
+        view=views.UserView.as_view(),
+        name='user'
     ),
     url(
-        regex=r'^(?P<username>[\w.@+-]+)/$',
-        view=views.UserDetailView.as_view(),
-        name='detail'
-    ),
-    url(
-        regex=r'^~update/$',
+        regex=r'^update/(?P<username>.+)/$',
         view=views.UserUpdateView.as_view(),
         name='update'
-    ),
+    )
 ]

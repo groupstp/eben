@@ -1,4 +1,5 @@
 {% load static i18n %}
 {% load crispy_forms_tags %}
+{% load rest_framework %}
     {% csrf_token %}
-    {{ form|crispy }}
+    {% render_form serializer %}

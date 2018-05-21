@@ -14,6 +14,7 @@ export default {
             'node_modules'
         ]
     },
+    devtool: "#sourcemap",
     module: {
         rules: [
             {
